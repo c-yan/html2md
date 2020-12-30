@@ -5,6 +5,7 @@ import fileinput
 import re
 import sys
 
+prepattern = re.compile('</?pre>')
 codepattern = re.compile('</?code>')
 apattern = re.compile('<a href="([^"]+)">(.+?)</a>')
 h2pattern = re.compile('<h2[^>]+>(.+?)</h2>')
@@ -17,6 +18,7 @@ for line in fileinput.input():
     line = h3pattern.sub(r'## \1', line)
     line = h4pattern.sub(r'### \1', line)
     line = dlpattern.sub(r'### \1', line)
+    line = prepattern.sub(r'```', line)
     line = codepattern.sub(r'`', line)
     line = apattern.sub(r'[\2](\1)', line)
     line = line.replace('](/', '](https://tip.golang.org/')
