@@ -12,6 +12,7 @@ h2pattern = re.compile('<h2[^>]+>(.+?)</h2>')
 h3pattern = re.compile('<h3[^>]+>(.+?)</h3>')
 h4pattern = re.compile('<h4[^>]+>(.+?)</h4>')
 dlpattern = re.compile('<dl[^>]+><dt>(.+?)</dt>')
+leadingspacespattern = re.compile('^ +')
 
 for line in fileinput.input():
     line = h2pattern.sub(r'# \1', line)
@@ -22,4 +23,5 @@ for line in fileinput.input():
     line = codepattern.sub(r'`', line)
     line = apattern.sub(r'[\2](\1)', line)
     line = line.replace('](/', '](https://tip.golang.org/')
+    line = leadingspacespattern.sub(r'', line)
     sys.stdout.write(line)
