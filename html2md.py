@@ -19,5 +19,5 @@ for line in fileinput.input():
     line = dlpattern.sub(r'### \1', line)
     line = codepattern.sub(r'`', line)
     line = apattern.sub(r'[\2](\1)', line)
-    line = line.replace('](/', '](https://golang.org/')
+    line = line.replace('](/', '](https://tip.golang.org/')
     sys.stdout.write(line)
